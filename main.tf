@@ -147,6 +147,10 @@ resource "aws_lb_target_group" "consul_http_8500" {
   port     = 8500
   protocol = "HTTP"
   tags     = "${merge(var.tags, map("Name", format("%s-consul-http-8500", var.name)))}"
+  
+  lifecycle {
+    create_before_destroy = true
+  }
 
   health_check {
     interval = 15
@@ -212,6 +216,10 @@ resource "aws_lb_target_group" "consul_https_8080" {
   port     = 8080
   protocol = "HTTPS"
   tags     = "${merge(var.tags, map("Name", format("%s-consul-https-8080", var.name)))}"
+
+  lifecycle {
+    create_before_destroy = true
+  }
 
   health_check {
     interval = 15
